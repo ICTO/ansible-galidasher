@@ -34,10 +34,10 @@ $ vi ansible.host
 with
 
 ```ini
-[vagrant]
+[galidasher]
 127.0.0.1 ansible_ssh_port=2222
 
-[vagrant:vars]
+[galidasher:vars]
 vnc_pass='local_vnc_passfile'
 vnc_port='8080'
 mh_server='http://your.matterhorn.server:8080'
@@ -47,10 +47,10 @@ mh_pass='matterhorn_password'
 
 ### Run the playbook
 
-Use *ansible.host* as inventory. Run the playbook only for the remote host *vagrant*. Use *vagrant* as the SSH user to connect to the remote host. *-k* enables the SSH password prompt.
+Use *ansible.host* as inventory. Run the playbook only for the remote host *galidasher*. Use *vagrant* as the SSH user to connect to the remote host. *-k* enables the SSH password prompt.
 
 ```bash
-$ ansible-playbook -k -i ansible.host ansible-galidasher/setup.yml --extra-vars="hosts=vagrant user=vagrant"
+$ ansible-playbook -k -i ansible.host ansible-galidasher/setup.yml --extra-vars="hosts=galidasher user=vagrant"
 ```
 
 ### Example output
