@@ -7,6 +7,8 @@ galidasher:
     - 'git'           # Git CLI
     - 'apache2'       # Apache HTTP Server metapackage
     - 'python-pycurl' # Python bindings to libcurl, needed by dashboard.py script
+    - 'imagemagick'   # Image manipulation programs
+    - 'vncsnapshot'   # A utility that takes JPEG snapshots from VNC servers
 
   webroot: '/var/www/galidasher'
   conf: '${galidasher.dest}/etc/mh-dashboard/dashboard.conf'
