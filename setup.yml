@@ -1,0 +1,15 @@
+---
+- name: "Galidasher playbook"
+  hosts: galidasher
+  user: $user
+  sudo: yes
+  sudo_user: root
+
+  vars_files:
+    - vars/galidasher.yml
+
+  tasks:
+    - include: tasks/setup.yml
+
+  handlers:
+    - include: handlers/apache.yml

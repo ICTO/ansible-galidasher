@@ -1,0 +1,54 @@
+---
+# Install dependencies
+- include: tasks/dependencies.yml
+
+# Create Galidasher destination directory
+- name: "Create Galidasher destination directory: ${galidasher.dest}"
+  file: path=${galidasher.dest} state=directory
+  tags:
+    - galidasher
+
+# Fetch MH dashboard from Git
+- name: "Fetch MH dashboard: ${galidasher.git}"
+  git: repo=${galidasher.git} dest=${galidasher.dest}
+  tags:
+    - galidasher
+
+# Link MH dashboard web folder to webroot
+- name: "Link ${galidasher.dest}/web to ${galidasher.webroot}"
+  file: src=${galidasher.dest}/web dest=${galidasher.webroot} state=link
+  # notify:
+  #  - "Reload Apache"
+  tags:
+    - galidasher
+
+# Install Galidasher config file
+- name: "Install Galidasher config file: ${galidasher.conf}"
+  template: src=templates/dashboard.conf.j2 dest=${galidasher.conf} owner=root group=root mode=0755
+  tags:
+    - galidasher
+
+# Cronjob update agents.json from MH server
+- name: "Cronjob agents.json updater: ${galidasher.script}"
+  cron: name="Update MH dashboard agents every hour" minute="0" hour="*" job="${galidasher.dest}/${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
+  tags:
+    - galidasher
+
+# Install Galidasher logrotate file
+- name: "Install Galidasher logrotate file: ${galidasher.logrotate}"
+  template: src=templates/galidasher.logrotate.j2 dest=${galidasher.logrotate} owner=root group=root mode=0644
+  tags:
+    - galidasher
+
+
+# Execute agents.json updater
+- name: "Execute updater: ${galidasher.script}"
+  shell: "${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
+  tags:
+    - galidasher
+
+# Transfer VNC password file
+- name: "Transfer VNC passfile: ${galidasher.vnc_pass}"
+  copy: src=${vnc.local_pass} dest=${galidasher.vnc_pass} owner=root group=root mode=0644
+  tags:
+    - galidasher

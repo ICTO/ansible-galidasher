@@ -1,0 +1,27 @@
+---
+# Galidasher settings
+galidasher:
+  git: 'https://github.com/flyapen/dashboard.git'
+  dest: '/opt/mh_dashboard'
+  dependencies:
+    - 'git'           # Git CLI
+    - 'apache2'       # Apache HTTP Server metapackage
+    - 'python-pycurl' # Python bindings to libcurl, needed by dashboard.py script
+
+  webroot: '/var/www/galidasher'
+  conf: '${galidasher.dest}/etc/mh-dashboard/dashboard.conf'
+  script: '${galidasher.dest}/script/dashboard.py'
+  vnc_pass: '${galidasher.dest}/etc/mh-dashboard/vnc_passfile'
+  logfile: '/var/log/galidasher.log'
+  logrotate: '/etc/logrotate.d/galidasher'
+
+# VNC settings
+vnc:
+  local_pass: ${vnc_pass} # Local VNC password file location i.e. /home/user/vnc.passwd
+  port: ${vnc_port}       # VNC port
+
+# Matterhorn settings
+mh:
+  server: ${mh_server}    # Matterhorn URL i.e. http://matterhorn.server.com:8080
+  user: ${mh_user}        # Matterhorn user
+  pass: ${mh_pass}        # Matterhorn password
