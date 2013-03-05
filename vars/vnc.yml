@@ -1,0 +1,5 @@
+---
+# VNC settings
+vnc:
+  local_pass: ${vnc_pass} # Local VNC password file location i.e. /home/user/vnc.passwd
+  port: ${vnc_port}       # VNC port

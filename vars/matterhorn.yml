@@ -1,0 +1,6 @@
+---
+# Matterhorn settings
+mh:
+  server: ${mh_server}    # Matterhorn URL i.e. http://matterhorn.server.com:8080
+  user: ${mh_user}        # Matterhorn user
+  pass: ${mh_pass}        # Matterhorn password
