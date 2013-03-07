@@ -41,7 +41,7 @@
 
 # Cronjob update agents.json from MH server
 - name: "Cronjob agents.json updater: ${galidasher.script}"
-  cron: name="Update MH dashboard agents every hour" minute="*/5" job="${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
+  cron: name="Update MH dashboard agents every 5 minutes" minute="*/5" job="${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
   tags:
     - galidasher
 
