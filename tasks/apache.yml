@@ -1,0 +1,16 @@
+---
+# Enable Apache LDAP Module
+- name: "Enable Apache LDAP Module"
+  shell: a2enmod authnz_ldap
+  tags:
+    - galidasher
+    - apache
+
+# Install Apache config Galidasher
+- name: "Install Apache config Galidasher: ${galidasher.apache_galidasher}"
+  template: src=templates/apache_galidasher.conf.j2 dest=${galidasher.apache_galidasher} owner=root group=root mode=0640
+  notify:
+    - "Restart Apache"
+  tags:
+    - galidasher
+    - apache

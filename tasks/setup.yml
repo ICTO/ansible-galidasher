@@ -1,6 +1,13 @@
 ---
+# Execute checks
+- include: tasks/checks.yml
+
 # Install dependencies
 - include: tasks/dependencies.yml
+
+# Configure Apache
+- include: tasks/apache.yml
+  when_set: ${apache_ldap}
 
 # Create Galidasher destination directory
 - name: "Create Galidasher destination directory: ${galidasher.dest}"
@@ -14,11 +21,15 @@
   tags:
     - galidasher
 
+# Create Galidasher VNC directory
+- name: "Create Galidasher VNC directory: ${galidasher.vnc.dest_dir}"
+  file: path=${galidasher.vnc.dest_dir} state=directory
+  tags:
+    - galidasher
+
 # Link MH dashboard web folder to webroot
 - name: "Link ${galidasher.dest}/web to ${galidasher.webroot}"
   file: src=${galidasher.dest}/web dest=${galidasher.webroot} state=link
-  # notify:
-  #  - "Reload Apache"
   tags:
     - galidasher
 
@@ -30,7 +41,7 @@
 
 # Cronjob update agents.json from MH server
 - name: "Cronjob agents.json updater: ${galidasher.script}"
-  cron: name="Update MH dashboard agents every hour" minute="0" hour="*" job="${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
+  cron: name="Update MH dashboard agents every hour" minute="*/5" job="${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
   tags:
     - galidasher
 
@@ -41,14 +52,30 @@
     - galidasher
 
 
-# Execute agents.json updater
-- name: "Execute updater: ${galidasher.script}"
-  shell: "${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
+# Transfer VNC password file
+- name: "Transfer VNC passfiles: ${galidasher.vnc.local_dir}"
+  copy: src=${item} dest=${galidasher.vnc.dest_dir} owner=root group=root mode=0644
+  with_fileglob:
+    - ${galidasher.vnc.local_dir}/*
   tags:
     - galidasher
 
-# Transfer VNC password file
-- name: "Transfer VNC passfile: ${galidasher.vnc_pass}"
-  copy: src=${vnc.local_pass} dest=${galidasher.vnc_pass} owner=root group=root mode=0644
+# Create agents.ini file
+- name: "Create agents.conf file: add vncpasswdFile entry"
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=vncpasswdFile value=${galidasher.vnc.dest_dir}/${item.vnc.passfile}
+  with_items: ${agents}
+  tags:
+    - galidasher
+
+# Create agents.ini file
+- name: "Create agents.conf file: add VNCPort entry"
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=VNCPort value=${item.vnc.port}
+  with_items: ${agents}
+  tags:
+    - galidasher
+
+# Execute agents.json updater
+- name: "Execute updater: ${galidasher.script}"
+  shell: "${galidasher.script} -c ${galidasher.conf} >> ${galidasher.logfile}"
   tags:
     - galidasher

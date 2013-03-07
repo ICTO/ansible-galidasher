@@ -1,8 +1,7 @@
 ---
 # Galidasher settings
 galidasher:
-  git: 'https://github.com/flyapen/dashboard.git'
-  dest: '/opt/mh_dashboard'
+  git: 'https://github.com/flyapen/dashboard.git' # MH dashboard repository
   dependencies:
     - 'git'           # Git CLI
     - 'apache2'       # Apache HTTP Server metapackage
@@ -10,9 +9,16 @@ galidasher:
     - 'imagemagick'   # Image manipulation programs
     - 'vncsnapshot'   # A utility that takes JPEG snapshots from VNC servers
 
-  webroot: '/var/www/galidasher'
-  conf: '${galidasher.dest}/etc/mh-dashboard/dashboard.conf'
-  script: '${galidasher.dest}/script/dashboard.py'
-  vnc_pass: '${galidasher.dest}/etc/mh-dashboard/vnc_passfile'
-  logfile: '/var/log/galidasher.log'
-  logrotate: '/etc/logrotate.d/galidasher'
+  dest: '/opt/mh_dashboard'                                   # Dashboard destination directory
+  webroot: '/var/www/galidasher'                              # Dashboard webroot destination
+  conf: '${galidasher.dest}/etc/mh-dashboard/dashboard.conf'  # Dashboard configuration file
+  script: '${galidasher.dest}/script/dashboard.py'            # Dashboard update script
+
+  vnc:
+    local_dir: '${vnc_local_dir_pass}'                        # Local directory containing VNC password files
+    dest_dir: '${galidasher.dest}/etc/mh-dashboard/vnc'       # Destination directory containing VNC password files
+
+  logfile: '/var/log/galidasher.log'                          # Dashboard logfile
+  logrotate: '/etc/logrotate.d/galidasher'                    # Dashboard logrotation script
+
+  apache_galidasher: '/etc/apache2/conf.d/galidasher.conf'    # Apache galidasher config

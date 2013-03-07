@@ -6,9 +6,9 @@
   sudo_user: root
 
   vars_files:
-    - vars/vnc.yml
     - vars/matterhorn.yml
     - vars/galidasher.yml
+    - vars/agents.yml
 
   tasks:
     - include: tasks/setup.yml
