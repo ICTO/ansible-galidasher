@@ -12,6 +12,3 @@
 
   tasks:
     - include: tasks/setup.yml
-
-  handlers:
-    - include: handlers/apache.yml
