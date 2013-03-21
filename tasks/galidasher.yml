@@ -66,7 +66,7 @@
 
 # Create agents.ini file
 - name: "Create agents.conf file: add campus entry"
-  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=campus value=${item.campus}
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=campus value='${item.campus}'
   when_set: ${item.campus}
   with_items: ${agents}
   tags:
@@ -74,7 +74,7 @@
 
 # Create agents.ini file
 - name: "Create agents.conf file: add campus entry"
-  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=campus value=${item.campus}
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=campus value='${item.campus}'
   when_set: ${item.campus}
   with_items: ${agents}
   tags:
@@ -82,7 +82,7 @@
 
 # Create agents.ini file
 - name: "Create agents.conf file: add building entry"
-  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=building value=${item.building}
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=building value='${item.building}'
   when_set: ${item.building}
   with_items: ${agents}
   tags:
@@ -90,7 +90,7 @@
 
 # Create agents.ini file
 - name: "Create agents.conf file: add center entry"
-  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=center value=${item.center}
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=center value='${item.center}'
   when_set: ${item.center}
   with_items: ${agents}
   tags:
@@ -98,7 +98,7 @@
 
 # Create agents.ini file
 - name: "Create agents.conf file: add classroom entry"
-  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=classroom value=${item.classroom}
+  ini_file: dest=${galidasher.dest}/etc/mh-dashboard/agents/agents.conf section='${item.name}' option=classroom value='${item.classroom}'
   when_set: ${item.classroom}
   with_items: ${agents}
   tags:
