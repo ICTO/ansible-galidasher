@@ -170,3 +170,4 @@ Read more on the Wiki pages about how this playbook works.
 http://icto.ugent.be
 
 [setup.yml](setup.yml)
+[agents.yml](vars/agents.yml)
