@@ -1,9 +1,9 @@
 ---
 # Execute checks
-- include: tasks/checks.yml
+- include: checks.yml
 
 # Install dependencies
-- include: tasks/dependencies.yml
+- include: dependencies.yml
 
 # Install Matterhorn dashboard
-- include: tasks/galidasher.yml
+- include: galidasher.yml
