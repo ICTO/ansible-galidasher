@@ -1,7 +1,6 @@
 ---
 - name: "Galidasher playbook"
   hosts: galidasher
-  user: $user
   sudo: yes
   sudo_user: root
 

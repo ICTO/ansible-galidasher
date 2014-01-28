@@ -1,21 +1,21 @@
 ---
 - name: "Fail if no agents are defined"
   fail: msg="No agents defined in host_vars or group_vars for host"
-  when_unset: ${galicaster_agents}
+  when: galicaster_agents is not defined
   tags:
     - galidasher
     - checks
 
 - name: "Fail when Matterhorn settings are absent"
   fail: msg="Matterhorn settings are not defined in host_vars or group_vars for host"
-  when_unset: ${matterhorn}
+  when: matterhorn is not defined
   tags:
     - galidasher
     - checks
 
 - name: "Fail when local directory with VNC passfiles is not defined"
   fail: msg="Local directory with VNC passfiles is not defined in host_vars or group_vars for host"
-  when_unset: ${vnc_local_dir_pass}
+  when: vnc_local_dir_pass is not defined
   tags:
     - galidasher
     - checks
