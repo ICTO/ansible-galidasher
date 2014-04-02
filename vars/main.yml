@@ -11,12 +11,11 @@ galidasher:
 
   dest: '/opt/mh_dashboard'                                   # Dashboard destination directory
   webroot: '/var/www/galidasher'                              # Dashboard webroot destination
-  conf: '${galidasher.dest}/etc/mh-dashboard/dashboard.conf'  # Dashboard configuration file
-  script: '${galidasher.dest}/script/dashboard.py'            # Dashboard update script
+  conf: '/opt/mh_dashboard/etc/mh-dashboard/dashboard.conf'  # Dashboard configuration file
+  script: '/opt/mh_dashboard/script/dashboard.py'            # Dashboard update script
 
   vnc:
-    local_dir: '${vnc_local_dir_pass}'                        # Local directory containing VNC password files
-    dest_dir: '${galidasher.dest}/etc/mh-dashboard/vnc'       # Destination directory containing VNC password files
+    dest_dir: '/opt/mh_dashboard/etc/mh-dashboard/vnc'       # Destination directory containing VNC password files
 
   logfile: '/var/log/galidasher.log'                          # Dashboard logfile
   logrotate: '/etc/logrotate.d/galidasher'                    # Dashboard logrotation script

@@ -1,7 +1,7 @@
 ---
 # Install Galidasher dependencies
 - name: "Install Galidasher dependencies"
-  apt: pkg={{item}} state=installed update-cache=yes
+  apt: pkg={{ item }} state=installed update-cache=yes
   with_items: galidasher.dependencies
   tags:
     - galidasher
